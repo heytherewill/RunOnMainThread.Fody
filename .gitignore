@@ -6,6 +6,8 @@
 [Bb]in/
 packages/
 TestResults/
+TestAssemblies/Debug
+TestAssemblies/Release
 
 # globs
 Makefile.in
