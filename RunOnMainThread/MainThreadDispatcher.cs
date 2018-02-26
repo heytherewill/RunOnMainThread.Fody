@@ -1,10 +1,15 @@
 ﻿using System;
+
 namespace RunOnMainThread
 {
-    public class MainThreadDispatcher
+    public static class MainThreadDispatcher
     {
-        public MainThreadDispatcher()
+        public static int Count = 0;
+
+        public static void RunOnMainThread(Action action)
         {
+            Count++;
+            action();
         }
     }
 }

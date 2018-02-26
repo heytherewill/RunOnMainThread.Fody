@@ -2,7 +2,8 @@
 
 namespace RunOnMainThread
 {
-    public class Class1
+    [AttributeUsage(AttributeTargets.Method)]
+    public sealed class RunOnMainThreadAttribute : Attribute
     {
     }
 }

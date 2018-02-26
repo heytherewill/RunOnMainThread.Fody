@@ -1,53 +1,38 @@
-﻿using System;
+﻿using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using static Mono.Cecil.MethodAttributes;
 
 public partial class ModuleWeaver
 {
-    // Will log an MessageImportance.High message to MSBuild. OPTIONAL
-    public Action<string> LogInfo { get; set; }
+    // The approach used here is similar to the one used for local functions
+    private void WeaveInvokeOnMainThread(MethodDefinition method, TypeDefinition containingType)
+    {
+        //Creates a private method, needed for calling InvokeOnMainThread
+        var privateMethodName = $"_{method.Name}_Woven";
+        var privateMethod = new MethodDefinition(privateMethodName, HideBySig | Private, ModuleDefinition.TypeSystem.Void);
+        containingType.Methods.Add(privateMethod);
 
-    // Will log an warning message to MSBuild. OPTIONAL
-    public Action<string> LogWarning { get; set; }
+        //Moves the instructions from the annotated method into our recently created private method
+        var il = method.Body.GetILProcessor();
+        var privateIl = privateMethod.Body.GetILProcessor();
+        foreach (var instruction in method.Body.Instructions.ToList())
+            privateIl.Append(instruction);
 
-    // Will log an error message to MSBuild. OPTIONAL
-    public Action<string> LogError { get; set; }
+        foreach (var variable in il.Body.Variables)
+            privateMethod.Body.Variables.Add(variable);
 
-    // Will log an warning message to MSBuild at a specific point in the code. OPTIONAL
-    public Action<string, SequencePoint> LogWarningPoint { get; set; }
+        //Empties the body of the annotated method so that we can add the needed instructions
+        il.Body.Variables.Clear();
+        il.Body.Instructions.Clear();
 
-    // Will log an error message to MSBuild at a specific point in the code. OPTIONAL
-    public Action<string, SequencePoint> LogErrorPoint { get; set; }
-
-    private const string ReturnMustBeVoid = "You can only use the RunOnMainThreadAttribute on void methods";
-
-    private const string MvxTypeName = "Mvx";
-    private const string ActionTypeName = "Action";
-    private const string MvxResolveName = "Resolve";
-    private const string SystemAssemblyName = "System";
-    private const string ConstructorMethodName = ".ctor";
-    private const string InvokeOnMainThreadName = "InvokeOnMainThread";
-    private const string MvvmCrossPlatformAssemblyName = "MvvmCross.Platform";
-    private const string RequestMainThreadActionName = "RequestMainThreadAction";
-    private const string MvxMainThreadDispatcherName = "IMvxMainThreadDispatcher";
-    private const string MvvmCrossPlatformCoreNamespaceName = "MvvmCross.Platform.Core";
-    private const string RunOnMainThreadAttributeTypeName = "RunOnMainThreadAttribute";
-    private const string MvxMainThreadDispatchingObjectName = "MvxMainThreadDispatchingObject";
-    private const string MvvmCrossWeaversMainThreadAssemblyName = "MvvmCross.Weavers.MainThread";
-
-    private static AssemblyNameReference _mvvmCrossPlatform;
-    private static AssemblyNameReference _mvvmCrossWeaversMainThread;
-
-    private TypeReference _mvx;
-    private TypeReference _bool;
-    private TypeReference _void;
-    private TypeReference _action;
-    private TypeReference _mainThreadAttribute;
-    private TypeReference _mainThreadDispatcher;
-    private TypeReference _mvxMainThreadDispatchingObject;
-
-    private GenericInstanceMethod _mvxResolve;
-    private MethodReference _actionConstructor;
-    private MethodReference _invokeOnMainThread;
-    private MethodReference _requestMainThreadAction;
+        //Call MainThreadDispatcher.RunOnMainThread
+        il.Append(il.Create(OpCodes.Nop));
+        il.Append(il.Create(OpCodes.Ldarg_0));
+        il.Append(il.Create(OpCodes.Ldftn, privateMethod));
+        il.Append(il.Create(OpCodes.Newobj, _actionConstructor));
+        il.Append(il.Create(OpCodes.Call, _runOnMainThread));
+        il.Append(il.Create(OpCodes.Nop));
+        il.Append(il.Create(OpCodes.Ret));
+    }
 }

@@ -1,20 +1,29 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using AssemblyToWeave;
 using Mono.Cecil;
+using RunOnMainThread;
+using Xunit;
 
 public class WeaverTests
 {
-    private Assembly wovenAssembly;
+    private const string AssemblyToWeaveDll = "AssemblyToWeave.dll";
 
-    public void Setup()
+    private readonly Assembly wovenAssembly;
+
+    public WeaverTests()
     {
-        var assemblyPath = Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory, @"../../../MvxMainThread.AssemblyToProcess/bin/Debug/MvxMainThread.AssemblyToProcess.dll"));
+        var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+        var assemblyPath = 
+            Path.GetFullPath(Path.Combine(assemblyLocation, $@"../../../../../TestAssemblies/Debug/netstandard2.0/{AssemblyToWeaveDll}"))
 #if (!DEBUG)
-        assemblyPath = assemblyPath.Replace("Debug", "Release");
+            .Replace("Debug", "Release")
 #endif
+        ;
 
-        var wovenAssemblyPath = assemblyPath.Replace(".dll", "Woven.dll");
+        var wovenAssemblyPath = assemblyPath.Replace(".dll", "_Woven.dll");
         File.Copy(assemblyPath, wovenAssemblyPath, true);
 
         var moduleDefinition = ModuleDefinition.ReadModule(assemblyPath);
@@ -24,19 +33,15 @@ public class WeaverTests
         moduleDefinition.Write(wovenAssemblyPath);
 
         wovenAssembly = Assembly.LoadFile(wovenAssemblyPath);
-
-        InitializeSingletonsIfNeeded();
     }
 
     [Fact]
     public void MethodsAnnotedWithTheRunOnMainThreadAttributeCallTheMainThreadDispatcher()
     {
-        var dispatcher = Mvx.Resolve<IMvxMainThreadDispatcher>() as CountingDispatcher;
-        var calls = dispatcher.Calls;
+        var type = wovenAssembly.DefinedTypes.Single(t => t.Name == nameof(BeforeWeave));
+        var instance = (dynamic)Activator.CreateInstance(type);
+        instance.ThisRunsOnTheMainThread();
 
-        var instance = (dynamic)Activator.CreateInstance(wovenAssembly.GetType(nameof(ToBeWoven)));
-        instance.SomeWovenMainThreadMethod();
-
-        Assert.Greater(dispatcher.Calls, calls);
+        Assert.Equal(1, MainThreadDispatcher.Count);
     }
 }
