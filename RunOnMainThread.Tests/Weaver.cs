@@ -34,14 +34,4 @@ public class WeaverTests
 
         wovenAssembly = Assembly.LoadFile(wovenAssemblyPath);
     }
-
-    [Fact]
-    public void MethodsAnnotedWithTheRunOnMainThreadAttributeCallTheMainThreadDispatcher()
-    {
-        var type = wovenAssembly.DefinedTypes.Single(t => t.Name == nameof(BeforeWeave));
-        var instance = (dynamic)Activator.CreateInstance(type);
-        instance.ThisRunsOnTheMainThread();
-
-        Assert.Equal(1, MainThreadDispatcher.Count);
-    }
 }

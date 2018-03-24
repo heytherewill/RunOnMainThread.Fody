@@ -1,8 +1,6 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThread", "RunOnMainThread\RunOnMainThread.csproj", "{B91880F3-95B2-428C-85DE-73BE9AC255E1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThread.Fody", "RunOnMainThread.Fody\RunOnMainThread.Fody.csproj", "{915579DC-6E79-4A53-9046-35C60C3CFA6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThread.Tests", "RunOnMainThread.Tests\RunOnMainThread.Tests.csproj", "{BB5BFD49-A6FE-4915-BE44-7D0018503DD4}"
@@ -11,16 +9,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestAssemblies", "TestAssem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyToWeave", "AssemblyToWeave\AssemblyToWeave.csproj", "{12AEBE09-DACF-4985-A408-20E9068D0AD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThread", "RunOnMainThread\RunOnMainThread.csproj", "{60590E7C-772F-4868-A0C3-EA43AB33EBFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThread.iOS", "RunOnMainThread.iOS\RunOnMainThread.iOS.csproj", "{D6BAA640-4736-4195-9790-E28E48743A94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThread.Droid", "RunOnMainThread.Droid\RunOnMainThread.Droid.csproj", "{980CD21E-EA21-4039-BACB-4EBE2E4360F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThread.macOS", "RunOnMainThread.macOS\RunOnMainThread.macOS.csproj", "{0E15DFF8-919A-45E1-8E4D-CC989D162AD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{F4786BD3-BF72-455F-943F-986901A6C001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B91880F3-95B2-428C-85DE-73BE9AC255E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B91880F3-95B2-428C-85DE-73BE9AC255E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B91880F3-95B2-428C-85DE-73BE9AC255E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B91880F3-95B2-428C-85DE-73BE9AC255E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{915579DC-6E79-4A53-9046-35C60C3CFA6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{915579DC-6E79-4A53-9046-35C60C3CFA6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{915579DC-6E79-4A53-9046-35C60C3CFA6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +37,22 @@ Global
 		{12AEBE09-DACF-4985-A408-20E9068D0AD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12AEBE09-DACF-4985-A408-20E9068D0AD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12AEBE09-DACF-4985-A408-20E9068D0AD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60590E7C-772F-4868-A0C3-EA43AB33EBFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60590E7C-772F-4868-A0C3-EA43AB33EBFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60590E7C-772F-4868-A0C3-EA43AB33EBFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60590E7C-772F-4868-A0C3-EA43AB33EBFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6BAA640-4736-4195-9790-E28E48743A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6BAA640-4736-4195-9790-E28E48743A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6BAA640-4736-4195-9790-E28E48743A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6BAA640-4736-4195-9790-E28E48743A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{980CD21E-EA21-4039-BACB-4EBE2E4360F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{980CD21E-EA21-4039-BACB-4EBE2E4360F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{980CD21E-EA21-4039-BACB-4EBE2E4360F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{980CD21E-EA21-4039-BACB-4EBE2E4360F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E15DFF8-919A-45E1-8E4D-CC989D162AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E15DFF8-919A-45E1-8E4D-CC989D162AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E15DFF8-919A-45E1-8E4D-CC989D162AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E15DFF8-919A-45E1-8E4D-CC989D162AD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{12AEBE09-DACF-4985-A408-20E9068D0AD4} = {8EB505FF-42F9-471C-A80D-22AF150F37FB}

@@ -4,12 +4,7 @@ namespace RunOnMainThread
 {
     public static class MainThreadDispatcher
     {
-        public static int Count = 0;
-
         public static void RunOnMainThread(Action action)
-        {
-            Count++;
-            action();
-        }
+            => throw new PlatformNotSupportedException("No platform specific MainThreadDispatcher has been provided for this platform");
     }
 }
