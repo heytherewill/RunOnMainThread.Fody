@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>RunOnMainThread.Fody</id>
+        <version>0.1</version>
+        <authors>William Barbosa</authors>
+        <projectUrl>https://github.com/willsb/RunOnMainThread.Fody</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Run annotated methods on the Main Thread</description>
+        <copyright />
+        <language />
+        <tags>xamarin monodroid monotouch fody plugin fody-addon main-thread main thread</tags>
+        <dependencies>
+            <dependency id="Fody" version="2.4.4" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="build/lib/*.*" target="lib" />
+    </files>
+</package>
