@@ -40,3 +40,8 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+
+.dotnet
+tools
+*.nupkg
+build/
