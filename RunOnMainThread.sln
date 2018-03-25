@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleApps", "SampleApps", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThreadSample.Droid", "RunOnMainThreadSample.Droid\RunOnMainThreadSample.Droid.csproj", "{B613C025-A603-47A2-983C-1D8C20DDECF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThreadSample.iOS", "RunOnMainThreadSample.Droid\RunOnMainThreadSample.iOS\RunOnMainThreadSample.iOS.csproj", "{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOnMainThreadSample.iOS", "RunOnMainThreadSample.iOS\RunOnMainThreadSample.iOS.csproj", "{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +101,7 @@ Global
 		{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
 		{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}.Release|Any CPU.Build.0 = Release|iPhone
 		{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{5E51CBD9-1857-4AB6-81F1-7AAD1DEF32AF}.Release|iPhone.ActiveCfg = Release|iPhone
