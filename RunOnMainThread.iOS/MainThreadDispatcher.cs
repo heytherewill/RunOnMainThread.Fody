@@ -3,14 +3,11 @@ using Foundation;
 
 namespace RunOnMainThread
 {
-    namespace RunOnMainThread
+    public static class MainThreadDispatcher
     {
-        public static class MainThreadDispatcher
+        public static void RunOnMainThread(Action action)
         {
-            public static void RunOnMainThread(Action action)
-            {
-                NSRunLoop.Main.BeginInvokeOnMainThread(action.Invoke);
-            }
+            NSRunLoop.Main.BeginInvokeOnMainThread(action.Invoke);
         }
     }
 }

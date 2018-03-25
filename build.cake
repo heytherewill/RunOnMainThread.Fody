@@ -17,7 +17,26 @@ var publishSettings = new NuGetPushSettings
     Source = "https://www.nuget.org/api/v2/package", 
 };
 
+Task("Clean")
+    .Does(() => 
+    {
+        CleanDirectory("./bin");
+        CleanDirectory("./build");
+        CleanDirectory("./packages");
+        CleanDirectory("./RunOnMainThread/bin");
+        CleanDirectory("./RunOnMainThread/obj");
+        CleanDirectory("./RunOnMainThread.iOS/bin");
+        CleanDirectory("./RunOnMainThread.iOS/obj");
+        CleanDirectory("./RunOnMainThread.Fody/bin");
+        CleanDirectory("./RunOnMainThread.Fody/obj");
+        CleanDirectory("./RunOnMainThread.macOS/bin");
+        CleanDirectory("./RunOnMainThread.macOS/obj");
+        CleanDirectory("./RunOnMainThread.Droid/bin");
+        CleanDirectory("./RunOnMainThread.Droid/obj");
+    });
+
 Task("Restore")
+    .IsDependentOn("Clean")
     .Does(() => NuGetRestore(targetProject));
 
 Task("Build")
@@ -29,25 +48,30 @@ Task("Copy")
     .Does(() =>
     {
         //Setup
-        EnsureDirectoryExists("build/lib/netstandard2.0");
+        EnsureDirectoryExists("build/netclassicweaver");
+        EnsureDirectoryExists("build/netstandardweaver");
         EnsureDirectoryExists("build/lib/MonoAndroid10");
         EnsureDirectoryExists("build/lib/Xamarin.iOS10");
         EnsureDirectoryExists("build/lib/Xamarin.Mac20");
-
+        EnsureDirectoryExists("build/lib/netstandard2.0");
+        
         //netstandard
-        CopyFiles(@"bin\Release\netstandard2.0\*.dll", @"build\lib\netstandard2.0");
+        CopyFiles(@"RunOnMainThread\bin\Release\netstandard2.0\RunOnMainThread.dll", @"build\lib\netstandard2.0");
 
         //Android
-        CopyFiles(@"bin\Release\netstandard2.0\*.dll", @"build\lib\MonoAndroid10");
-        CopyFiles(@"bin\Release\RunOnMainThread.Droid.dll", @"build\lib\MonoAndroid10");
+        CopyFiles(@"RunOnMainThread.Droid\bin\Release\RunOnMainThread.dll", @"build\lib\MonoAndroid10");
 
         //iOS
-        CopyFiles(@"bin\Release\netstandard2.0\*.dll", @"build\lib\Xamarin.iOS10");
-        CopyFiles(@"bin\Release\RunOnMainThread.iOS.dll", @"build\lib\Xamarin.iOS10");
+        CopyFiles(@"RunOnMainThread.iOS\bin\Release\RunOnMainThread.dll", @"build\lib\Xamarin.iOS10");
 
         //macOS
-        CopyFiles(@"bin\Release\netstandard2.0\*.dll", @"build\lib\Xamarin.Mac20");
-        CopyFiles(@"bin\Release\RunOnMainThread.macOS.dll", @"build\lib\Xamarin.Mac20");
+        CopyFiles(@"RunOnMainThread.macOS\bin\Release\RunOnMainThread.dll", @"build\lib\Xamarin.Mac20");
+
+        //Weavers
+        CopyFiles(@"bin\Release\net46\RunOnMainThread.Fody.dll", @"build\netclassicweaver");
+        CopyFiles(@"bin\Release\net46\RunOnMainThread.Fody.pdb", @"build\netclassicweaver");
+        CopyFiles(@"bin\Release\netstandard2.0\RunOnMainThread.Fody.dll", @"build\netstandardweaver");
+        CopyFiles(@"bin\Release\netstandard2.0\RunOnMainThread.Fody.pdb", @"build\netstandardweaver");
     });
 
 Task("Pack")
