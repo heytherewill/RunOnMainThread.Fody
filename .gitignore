@@ -45,3 +45,4 @@ Thumbs.db
 tools
 *.nupkg
 build/
+.vs/
