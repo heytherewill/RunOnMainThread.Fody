@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/CrashButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This makes the app crash" />
+    <Button
+        android:id="@+id/DispatcherButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This works using the dispatcher" />
+    <Button
+        android:id="@+id/WeaverButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This works using the weaver" />
+</LinearLayout>

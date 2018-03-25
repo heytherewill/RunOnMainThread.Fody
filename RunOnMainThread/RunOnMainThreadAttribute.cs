@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RunOnMainThread
+namespace MainThread
 {
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class RunOnMainThreadAttribute : Attribute

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ig-dH-kj5">
+                                <rect key="frame" x="-0.5" y="40" width="375" height="30"/>
+                                <state key="normal" title="This makes the app crash"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7G-33-vvL">
+                                <rect key="frame" x="-0.5" y="140" width="375" height="30"/>
+                                <state key="normal" title="This works using the weaver"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JU-iL-QeI">
+                                <rect key="frame" x="-0.5" y="90" width="375" height="30"/>
+                                <state key="normal" title="This works using the dispatcher"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="z7G-33-vvL" firstAttribute="top" secondItem="6JU-iL-QeI" secondAttribute="bottom" constant="20" id="20V-xg-ovk"/>
+                            <constraint firstItem="6JU-iL-QeI" firstAttribute="height" secondItem="5ig-dH-kj5" secondAttribute="height" id="Ecg-eu-J0U"/>
+                            <constraint firstItem="6JU-iL-QeI" firstAttribute="centerX" secondItem="5ig-dH-kj5" secondAttribute="centerX" id="Kwe-6R-Xof"/>
+                            <constraint firstItem="6JU-iL-QeI" firstAttribute="top" secondItem="5ig-dH-kj5" secondAttribute="bottom" constant="20" id="OfB-Sh-tLV"/>
+                            <constraint firstItem="z7G-33-vvL" firstAttribute="centerX" secondItem="6JU-iL-QeI" secondAttribute="centerX" id="YcX-Gj-wOg"/>
+                            <constraint firstItem="z7G-33-vvL" firstAttribute="height" secondItem="6JU-iL-QeI" secondAttribute="height" id="aI1-pg-VQe"/>
+                            <constraint firstItem="5ig-dH-kj5" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ix0-0Q-iCv"/>
+                            <constraint firstItem="z7G-33-vvL" firstAttribute="width" secondItem="6JU-iL-QeI" secondAttribute="width" id="xLG-eQ-Jmw"/>
+                            <constraint firstItem="5ig-dH-kj5" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="xjx-Qp-47F"/>
+                            <constraint firstItem="6JU-iL-QeI" firstAttribute="width" secondItem="5ig-dH-kj5" secondAttribute="width" id="yzY-Ub-tDE"/>
+                            <constraint firstItem="5ig-dH-kj5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zZE-Fs-INd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="CrashButton" destination="5ig-dH-kj5" id="csc-PR-fCT"/>
+                        <outlet property="DispatcherButton" destination="6JU-iL-QeI" id="Ry2-zU-Ujg"/>
+                        <outlet property="WeaverButton" destination="z7G-33-vvL" id="bOf-o7-2Sr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

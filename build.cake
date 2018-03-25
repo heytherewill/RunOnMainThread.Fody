@@ -91,6 +91,6 @@ Task("Publish")
 
 //Default Operation
 Task("Default")
-    .IsDependentOn("Publish");
+    .IsDependentOn("Pack");
 
 RunTarget(target);
