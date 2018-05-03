@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Threading;
-using RunOnMainThread;
+using RunOnMainThreadSample.Core;
 using UIKit;
 
 namespace RunOnMainThreadSample.iOS
 {
-    public partial class ViewController : UIViewController
+    public partial class ViewController : UIViewController, IDialogDisplayer
     {
-        protected ViewController(IntPtr handle) 
+        private DialogController _dialogController;
+
+        protected ViewController(IntPtr handle)
             : base(handle)
         {
         }
@@ -16,44 +18,30 @@ namespace RunOnMainThreadSample.iOS
         {
             base.ViewDidLoad();
 
-            CrashButton.TouchUpInside += delegate 
+            _dialogController = new DialogController(this);
+
+            CrashButton.TouchUpInside += delegate
             {
-                var thread = new Thread(ShowDialog);
+                var thread = new Thread(_dialogController.ShowDialog);
                 thread.Start();
             };
 
             DispatcherButton.TouchUpInside += delegate
             {
-                var thread = new Thread(ShowDialogUsingDispatcher);
+                var thread = new Thread(_dialogController.ShowDialogUsingDispatcher);
                 thread.Start();
             };
 
             WeaverButton.TouchUpInside += delegate
             {
-                var thread = new Thread(ShowDialogUsingWeaver);
+                var thread = new Thread(_dialogController.ShowDialogUsingWeaver);
                 thread.Start();
             };
         }
 
-        private void ShowDialog()
+        public void ShowDialog(string text)
         {
-            var alertView = new UIAlertView("This runs on the UI thread!", "", null, "Ok", null);
-            alertView.Show();
-        }
-
-        private void ShowDialogUsingDispatcher()
-        {
-            MainThreadDispatcher.RunOnMainThread(() =>
-            {
-                var alertView = new UIAlertView("This runs on the UI thread!", "", null, "Ok", null);
-                alertView.Show();
-            });
-        }
-
-        [RunOnMainThread]
-        private void ShowDialogUsingWeaver()
-        {
-            var alertView = new UIAlertView("This runs on the UI thread!", "", null, "Ok", null);
+            var alertView = new UIAlertView(text, "", null, "Ok", null);
             alertView.Show();
         }
     }

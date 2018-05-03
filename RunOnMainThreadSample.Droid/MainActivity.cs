@@ -1,14 +1,16 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using RunOnMainThread;
 using System.Threading;
+using RunOnMainThreadSample.Core;
 
 namespace RunOnMainThreadSample.Droid
 {
     [Activity(Label = "RunOnMainThreadSample", MainLauncher = true, Icon = "@mipmap/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : Activity, IDialogDisplayer
     {
+        private DialogController _dialogController;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -18,48 +20,27 @@ namespace RunOnMainThreadSample.Droid
 
             FindViewById<Button>(Resource.Id.CrashButton).Click += delegate 
             {
-                var thread = new Thread(ShowDialog);
+                var thread = new Thread(_dialogController.ShowDialog);
                 thread.Start();
             };
 
             FindViewById<Button>(Resource.Id.DispatcherButton).Click += delegate 
             {
-                var thread = new Thread(ShowDialogUsingDispatcher);
+                var thread = new Thread(_dialogController.ShowDialogUsingDispatcher);
                 thread.Start();
             };
 
             FindViewById<Button>(Resource.Id.WeaverButton).Click += delegate 
             {
-                var thread = new Thread(ShowDialogUsingWeaver);
+                var thread = new Thread(_dialogController.ShowDialogUsingWeaver);
                 thread.Start();
             };
         }
 
-        private void ShowDialog()
+        public void ShowDialog(string text)
         {
             var builder = new AlertDialog.Builder(this)
-                .SetMessage("This runs on the UI thread!")
-                .SetPositiveButton("Ok", (s, e) => { });
-
-            builder.Show();
-        }
-        private void ShowDialogUsingDispatcher()
-        {
-            MainThreadDispatcher.RunOnMainThread(() =>
-            {
-                var builder = new AlertDialog.Builder(this)
-                    .SetMessage("This runs on the UI thread!")
-                    .SetPositiveButton("Ok", (s, e) => { });
-
-                builder.Show();
-            });
-        }
-
-        [RunOnMainThread]
-        private void ShowDialogUsingWeaver()
-        {
-            var builder = new AlertDialog.Builder(this)
-                .SetMessage("This runs on the UI thread!")
+                .SetMessage(text)
                 .SetPositiveButton("Ok", (s, e) => { });
 
             builder.Show();

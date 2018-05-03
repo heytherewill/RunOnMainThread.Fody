@@ -87,7 +87,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="RunOnMainThread">
-      <HintPath>..\..\packages\RunOnMainThread.Fody.0.1.0\lib\Xamarin.iOS10\RunOnMainThread.dll</HintPath>
+      <HintPath>..\packages\RunOnMainThread.Fody.0.2.0\lib\Xamarin.iOS10\RunOnMainThread.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +114,12 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RunOnMainThreadSample.Core\RunOnMainThreadSample.Core.csproj">
+      <Project>{19A9CF0E-859C-4483-B6A2-C885B7B40CDA}</Project>
+      <Name>RunOnMainThreadSample.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Fody.2.4.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.2.4.4\build\Fody.targets')" />
