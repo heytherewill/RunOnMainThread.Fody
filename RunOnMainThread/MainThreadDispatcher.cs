@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MainThread
+namespace RunOnMainThread
 {
     public static class MainThreadDispatcher
     {
