@@ -19,7 +19,7 @@ public partial class ModuleWeaver
     // Will log an error message to MSBuild at a specific point in the code. OPTIONAL
     public Action<string, SequencePoint> LogErrorPoint { get; set; }
 
-    private const string ReturnMustBeVoid = "You can only use the RunOnMainThreadAttribute on void methods";
+    private const string ReturnTypeMustBeVoid = "You can only use the RunOnMainThreadAttribute on void methods";
 
     private const string ActionTypeName = "Action";
     private const string SystemAssemblyName = "System";

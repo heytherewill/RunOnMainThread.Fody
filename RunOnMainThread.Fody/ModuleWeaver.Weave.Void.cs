@@ -6,7 +6,7 @@ using static Mono.Cecil.MethodAttributes;
 public partial class ModuleWeaver
 {
     // The approach used here is similar to the one used for local functions
-    private void WeaveInvokeOnMainThread(MethodDefinition method, TypeDefinition containingType)
+    private void WeaveInvokeOnMainThreadOnVoidMethod(MethodDefinition method, TypeDefinition containingType)
     {
         //Creates a private method, needed for calling InvokeOnMainThread
         var privateMethodName = $"_{method.Name}_Woven";

@@ -24,9 +24,19 @@ public partial class ModuleWeaver
         {
             var declaringType = grouping.Key;
 
-            foreach (var method in grouping.Where(ShouldWeave))
+            foreach (var weaverInfo in grouping.Select(WeaverInformation))
             {
-                WeaveInvokeOnMainThread(method, declaringType);
+                switch (weaverInfo.WeaverKind)
+                {
+                    case WeaverKind.Void:
+                        WeaveInvokeOnMainThreadOnVoidMethod(weaverInfo.MethodDefinition, declaringType);
+                        break;
+
+                    case WeaverKind.None:
+                        LogErrorPoint(ReturnTypeMustBeVoid, weaverInfo.SequencePoint);
+                        break;
+                }
+
 
                 //Removes the reference to the RunOnMainThread attribute
                 method.CustomAttributes.Remove(method.CustomAttributes
