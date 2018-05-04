@@ -30,8 +30,8 @@ public partial class ModuleWeaver
         il.Append(il.Create(OpCodes.Nop));
         il.Append(il.Create(OpCodes.Ldarg_0));
         il.Append(il.Create(OpCodes.Ldftn, privateMethod));
-        il.Append(il.Create(OpCodes.Newobj, _actionConstructor));
-        il.Append(il.Create(OpCodes.Call, _runOnMainThread));
+        il.Append(il.Create(OpCodes.Newobj, ActionConstructor));
+        il.Append(il.Create(OpCodes.Call, RunOnMainThread));
         il.Append(il.Create(OpCodes.Nop));
         il.Append(il.Create(OpCodes.Ret));
     }

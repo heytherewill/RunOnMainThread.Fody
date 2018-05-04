@@ -30,14 +30,14 @@ public partial class ModuleWeaver
     private const string MainThreadDispatcherTypeName = "MainThreadDispatcher";
     private const string RunOnMainThreadAttributeTypeName = "RunOnMainThreadAttribute";
 
-    private static AssemblyNameReference _runOnMainThreadAssembly;
+    private static AssemblyNameReference RunOnMainThreadAssembly;
 
-    private TypeReference _bool;
-    private TypeReference _void;
-    private TypeReference _action;
-    private TypeReference _mainThreadAttribute;
-    private TypeReference _mainThreadDispatcher;
+    private TypeReference Bool;
+    private TypeReference Void;
+    private TypeReference Action;
+    private TypeReference MainThreadAttribute;
+    private TypeReference MainThreadDispatcher;
 
-    private MethodReference _runOnMainThread;
-    private MethodReference _actionConstructor;
+    private MethodReference RunOnMainThread;
+    private MethodReference ActionConstructor;
 }

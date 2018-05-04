@@ -10,8 +10,6 @@ public partial class ModuleWeaver
 
     public void Execute()
     {
-        Debug.WriteLine("Weaving file: " + ModuleDefinition.FileName);
-
         Initialize();
 
         var typesToWeave =
@@ -37,9 +35,8 @@ public partial class ModuleWeaver
                         break;
                 }
 
-
                 //Removes the reference to the RunOnMainThread attribute
-                method.CustomAttributes.Remove(method.CustomAttributes
+                weaverInfo.MethodDefinition.CustomAttributes.Remove(weaverInfo.MethodDefinition.CustomAttributes
                     .First(a => a.AttributeType.Name == RunOnMainThreadAttributeTypeName));
             }
         }
@@ -48,31 +45,31 @@ public partial class ModuleWeaver
     private void Initialize()
     {
         //Assemblies
-        _runOnMainThreadAssembly = FindAssembly(RunOnMainThreadAssemblyName);
+        RunOnMainThreadAssembly = FindAssembly(RunOnMainThreadAssemblyName);
 
         //Types
-        _void = ModuleDefinition.TypeSystem.Void;
-        _bool = ModuleDefinition.TypeSystem.Boolean;
+        Void = ModuleDefinition.TypeSystem.Void;
+        Bool = ModuleDefinition.TypeSystem.Boolean;
 
-        _mainThreadDispatcher = new TypeReference(
+        MainThreadDispatcher = new TypeReference(
             RunOnMainthreadNamespaceName, MainThreadDispatcherTypeName,
-            ModuleDefinition, _runOnMainThreadAssembly);
+            ModuleDefinition, RunOnMainThreadAssembly);
 
-        _action = new TypeReference(
+        Action = new TypeReference(
             SystemAssemblyName,
             ActionTypeName,
             ModuleDefinition, ModuleDefinition.TypeSystem.CoreLibrary);
 
-        _mainThreadAttribute = new TypeReference(
+        MainThreadAttribute = new TypeReference(
             RunOnMainThreadAssemblyName,
             RunOnMainThreadAttributeTypeName,
-            ModuleDefinition, _runOnMainThreadAssembly);
+            ModuleDefinition, RunOnMainThreadAssembly);
 
         //Methods
-        _actionConstructor = ModuleDefinition.ImportReference(typeof(Action).GetConstructors().Single());
+        ActionConstructor = ModuleDefinition.ImportReference(typeof(Action).GetConstructors().Single());
 
-        _runOnMainThread = new MethodReference(RunOnMainThreadName, _void, _mainThreadDispatcher);
-        _runOnMainThread.Parameters.Add(new ParameterDefinition(_action));
+        RunOnMainThread = new MethodReference(RunOnMainThreadName, Void, MainThreadDispatcher);
+        RunOnMainThread.Parameters.Add(new ParameterDefinition(Action));
     }
 
     private AssemblyNameReference FindAssembly(string assemblyName)
