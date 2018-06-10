@@ -12,6 +12,7 @@ var vsWhereSettings = new VSWhereLatestSettings
     Requires = "Component.Xamarin"
 };
 
+FilePath msBuildPath;
 var vsLatest = VSWhereLatest(vsWhereSettings);
 msBuildPath = (vsLatest == null)
     ? null
@@ -26,7 +27,6 @@ var buildSettings = new MSBuildSettings
     Verbosity = Verbosity.Verbose,
     Configuration = "Release"
 };
-
 
 var packSettings = new NuGetPackSettings();
 var publishSettings = new NuGetPushSettings 
