@@ -1,21 +1,45 @@
+#tool nuget:?package=vswhere
+
 var target = Argument("target", "Default");
 
 const string targetProject = "./RunOnMainThread.sln";
 const string nuspecFile = "./RunOnMainThread.nuspec";
 var apiKey = EnvironmentVariable("NUGET_API_KEY");
 
+var msBuildPath = findMSBuildPath();
 var packSettings = new NuGetPackSettings();
 var buildSettings = new MSBuildSettings 
 {
+    ToolPath = msBuildPath,
     Verbosity = Verbosity.Verbose,
     Configuration = "Release"
 };
-
 var publishSettings = new NuGetPushSettings 
 {
     ApiKey = apiKey,
     Source = "https://www.nuget.org/api/v2/package", 
 };
+
+private FilePath findMSBuildPath()
+{
+    FilePath msBuildPath = null;
+
+    if (IsRunningOnWindows())
+    {
+        var vsLatest = VSWhereLatest(new VSWhereLatestSettings
+        {
+            IncludePrerelease = true,
+            Requires = "Component.Xamarin"
+        });
+
+        if (vsLatest != null)
+        {
+            msBuildPath = vsLatest.CombineWithFilePath("./MSBuild/15.0/Bin/MSBuild.exe");
+        }
+    }
+
+    return msBuildPath;
+}
 
 Task("Clean")
     .Does(() => 
