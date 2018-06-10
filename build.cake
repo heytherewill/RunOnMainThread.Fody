@@ -25,14 +25,8 @@ Task("Clean")
         CleanDirectory("./packages");
         CleanDirectory("./RunOnMainThread/bin");
         CleanDirectory("./RunOnMainThread/obj");
-        CleanDirectory("./RunOnMainThread.iOS/bin");
-        CleanDirectory("./RunOnMainThread.iOS/obj");
         CleanDirectory("./RunOnMainThread.Fody/bin");
         CleanDirectory("./RunOnMainThread.Fody/obj");
-        CleanDirectory("./RunOnMainThread.macOS/bin");
-        CleanDirectory("./RunOnMainThread.macOS/obj");
-        CleanDirectory("./RunOnMainThread.Droid/bin");
-        CleanDirectory("./RunOnMainThread.Droid/obj");
     });
 
 Task("Restore")
@@ -47,25 +41,16 @@ Task("Copy")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        //Setup
         EnsureDirectoryExists("build/netclassicweaver");
         EnsureDirectoryExists("build/netstandardweaver");
-        EnsureDirectoryExists("build/lib/MonoAndroid10");
-        EnsureDirectoryExists("build/lib/Xamarin.iOS10");
-        EnsureDirectoryExists("build/lib/Xamarin.Mac20");
-        EnsureDirectoryExists("build/lib/netstandard2.0");
-        
-        //netstandard
-        CopyFiles(@"RunOnMainThread\bin\Release\netstandard2.0\RunOnMainThread.dll", @"build\lib\netstandard2.0");
-
-        //Android
-        CopyFiles(@"RunOnMainThread.Droid\bin\Release\RunOnMainThread.dll", @"build\lib\MonoAndroid10");
-
-        //iOS
-        CopyFiles(@"RunOnMainThread.iOS\bin\Release\RunOnMainThread.dll", @"build\lib\Xamarin.iOS10");
-
-        //macOS
-        CopyFiles(@"RunOnMainThread.macOS\bin\Release\RunOnMainThread.dll", @"build\lib\Xamarin.Mac20");
+  
+        var targets = new [] { "netstandard2.0", "MonoAndroid81", "Xamarin.iOS10", "Xamarin.Mac20", "Xamarin.TvOS10", "Xamarin.WatchOS10" };
+      
+        foreach(var target in targets)
+        {
+            EnsureDirectoryExists($"build/lib/{target}");
+            CopyFiles($@"bin\Release\{target.ToLower()}\RunOnMainThread.dll", $@"build\lib\{target}");
+        }
 
         //Weavers
         CopyFiles(@"bin\Release\net46\RunOnMainThread.Fody.dll", @"build\netclassicweaver");
