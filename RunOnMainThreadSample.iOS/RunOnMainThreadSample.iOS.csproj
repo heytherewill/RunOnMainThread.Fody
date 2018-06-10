@@ -123,4 +123,5 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Fody.2.4.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.2.4.4\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.3\build\Fody.targets')" />
 </Project>

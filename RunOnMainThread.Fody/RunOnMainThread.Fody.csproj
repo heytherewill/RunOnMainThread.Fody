@@ -11,6 +11,6 @@
     <OutputPath>..\bin\Release</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FodyHelpers" Version="2.4.1" />
+    <PackageReference Include="FodyHelpers" Version="3.0.3" />
   </ItemGroup>
 </Project>
