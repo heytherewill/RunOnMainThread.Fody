@@ -68,7 +68,7 @@ Task("Copy")
         EnsureDirectoryExists("build/netclassicweaver");
         EnsureDirectoryExists("build/netstandardweaver");
   
-        var targets = new [] { "netstandard2.0", "MonoAndroid81", "Xamarin.iOS10", "Xamarin.Mac20", "Xamarin.TvOS10", "Xamarin.WatchOS10" };
+        var targets = new [] { "netstandard2.0", "net46", "MonoAndroid81", "Xamarin.iOS10", "Xamarin.Mac20", "Xamarin.TvOS10", "Xamarin.WatchOS10" };
       
         foreach(var target in targets)
         {
