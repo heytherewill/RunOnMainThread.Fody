@@ -6,7 +6,7 @@ The Fody plugin you never realized you needed.
 
 Install via [NuGet](https://www.nuget.org/packages/RunOnMainThread.Fody/) using:
 
-``PM> Install-Package RunOnMainThread.Fody`
+`PM> Install-Package RunOnMainThread.Fody`
 
 Then add it to your `FodyWeavers.xml`:
 
